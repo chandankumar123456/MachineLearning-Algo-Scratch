@@ -1,5 +1,5 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
 class LinearRegression:
     def __init__(self, learning_rate = 0.0001, epochs = 1000):
         """Initialize the model parameters and hyperparameters
@@ -27,6 +27,8 @@ class LinearRegression:
         self.weights = np.zeros(n_features)
         self.bias = 0
 
+        plt.figure(figsize=(10, 6))  # Create a new figure for visualization
+
         for epoch in range(self.epochs):
             preds = self.predict(X)
             errors = preds - y
@@ -39,9 +41,28 @@ class LinearRegression:
             self.weights -= self.learning_rate * weight_gradient
             self.bias -= self.learning_rate * bias_gradient
 
-            if epoch % 100 == 0:
+            # Plotting
+            if epoch % 100 == 0:  # Plot every 100 epochs
+                plt.scatter(X, y, color='orange', s=10, label='Data')
+                plt.plot(X, preds, color='black', linewidth=2, label='Prediction')
+                plt.title(f"Epoch {epoch}: Linear Regression Fit")
+                plt.xlabel("X")
+                plt.ylabel("y")
+                plt.legend()
+                plt.show()  # Show plot after each 100 epochs
+
                 loss = self.compute_loss(X, y)
                 print(f"Epoch {epoch}: Loss = {loss}")
+
+        # Final plot after training
+        plt.scatter(X, y, color='orange', s=10, label='Data')
+        plt.plot(X, preds, color='black', linewidth=2, label='Final Prediction')
+        plt.title("Final Linear Regression Fit")
+        plt.xlabel("X")
+        plt.ylabel("y")
+        plt.legend()
+        plt.show()
+
 
     def evaluate(self, X_test, y_test):
         """Evaluate the model performance on new test data."""
