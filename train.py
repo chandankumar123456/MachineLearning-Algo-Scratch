@@ -16,7 +16,8 @@ plt.ylabel("y")
 plt.show()
 
 reg = LinearRegression(learning_rate=0.01)
-reg.fit(X_train, y_train)
+# reg.fit(X_train, y_train)
+reg.fit1(X_train, y_train)
 preds = reg.predict(X_test)
 
 reg.evaluate(X_test, y_test)
